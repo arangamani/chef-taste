@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "solve", "~> 0.8.0"
   spec.add_dependency "berkshelf", "~> 2.0.10"
   spec.add_dependency "thor", "~> 0.18.0"
+  spec.add_dependency "terminal-table", "~> 1.4.5"
 end
