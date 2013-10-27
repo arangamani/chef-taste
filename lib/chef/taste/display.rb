@@ -10,6 +10,7 @@ module Chef
           headings = [
             'Name',
             'Requirement',
+            'Used',
             'Latest',
             'Status',
             'Changelog'
@@ -18,13 +19,20 @@ module Chef
             rows << [
               dependency.name,
               dependency.requirement,
+              dependency.version_used,
               dependency.latest,
-              dependency.status,
+              {:value => dependency.status, :alignment => :center},
               dependency.changelog
             ]
           end
+          overall_status = dependencies.all? { |dep| dep.status == TICK_MARK }
           table = Terminal::Table.new headings: headings, rows: rows
           puts table
+          if overall_status
+            puts "Status: up-to-date ( #{TICK_MARK} )\n"
+          else
+            puts "Status: out-of-date ( #{X_MARK} )\n"
+          end
         end
       end
     end

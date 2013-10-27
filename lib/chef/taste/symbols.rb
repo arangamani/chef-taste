@@ -1,0 +1,2 @@
+TICK_MARK = "\u2714"
+X_MARK = "\u2716"

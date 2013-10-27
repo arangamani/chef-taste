@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "berkshelf", "~> 2.0.10"
   spec.add_dependency "thor", "~> 0.18.0"
   spec.add_dependency "terminal-table", "~> 1.4.5"
+  spec.add_dependency "googl", "~> 0.6.3"
+  spec.add_dependency "octokit", "~> 2.5.0"
 end
