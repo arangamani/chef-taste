@@ -24,6 +24,7 @@
 #
 
 require 'berkshelf'
+require 'colorize'
 require 'googl'
 require 'octokit'
 require 'ridley'

@@ -49,12 +49,20 @@ module Chef
               'Changelog'
             ]
             dependencies.each do |dependency|
+              color =
+                if dependency.status == TICK_MARK
+                  'green'
+                elsif dependency.status == X_MARK
+                  'red'
+                else
+                  'white'
+                end
               rows << [
                 dependency.name,
                 dependency.requirement,
                 dependency.version_used,
                 dependency.latest,
-                {:value => dependency.status, :alignment => :center},
+                {:value => dependency.status.send(color), :alignment => :center},
                 dependency.changelog
               ]
             end
@@ -64,9 +72,9 @@ module Chef
             table = Terminal::Table.new headings: headings, rows: rows
             puts table
             if out_of_date
-              puts "Status: out-of-date ( #{X_MARK} )\n"
+              puts "Status: out-of-date ( #{X_MARK} )\n".red
             else
-              puts "Status: up-to-date ( #{TICK_MARK} )\n"
+              puts "Status: up-to-date ( #{TICK_MARK} )\n".green
             end
           end
         end
