@@ -38,6 +38,8 @@ module Chef
       def check
         dependencies = DependencyChecker.check
         Display.print(dependencies)
+      rescue NotACookbookError
+        puts "The path is not a cookbook path".red
       end
     end
   end

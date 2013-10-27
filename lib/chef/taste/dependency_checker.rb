@@ -40,7 +40,7 @@ module Chef
         # @raise NotACookbook the current/given path is not a cookbook
         #
         def check(path = Dir.pwd)
-          raise NotACookbook, "Path is not a cookbook" unless File.exists?(File.join(path, 'metadata.rb'))
+          raise NotACookbookError, "Path is not a cookbook" unless File.exists?(File.join(path, 'metadata.rb'))
           ridley = Ridley::Chef::Cookbook::Metadata.from_file(File.join(path, 'metadata.rb'))
           dependencies =
             ridley.dependencies.map do |name, version|

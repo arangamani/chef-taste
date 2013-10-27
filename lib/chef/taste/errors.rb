@@ -27,6 +27,6 @@ module Chef
   module Taste
     # The current/given path is not a cookbook
     #
-    class NotACookbook < StandardError; end
+    class NotACookbookError < StandardError; end
   end
 end
