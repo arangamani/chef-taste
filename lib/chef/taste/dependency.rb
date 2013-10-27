@@ -37,19 +37,19 @@ module Chef
       attr_reader :requirement
 
       # The version of cookbook used after applying the version constraint
-      attr_reader :version_used
+      attr_accessor :version_used
 
       # The latest version available for the dependency
-      attr_reader :latest
+      attr_accessor :latest
 
       # The status of the dependency
-      attr_reader :status
+      attr_accessor :status
 
       # The source URL for a cookbook
-      attr_reader :source_url
+      attr_accessor :source_url
 
       # The changelog link for the dependency if available
-      attr_reader :changelog
+      attr_accessor :changelog
 
       # Constructor
       #
@@ -66,46 +66,6 @@ module Chef
         @status = 'N/A'
         @source_url = nil
         @changelog = nil
-      end
-
-      # Sets the version used
-      #
-      # @param version_used [String] the version used based on the given constraint
-      #
-      def version_used=(version_used)
-        @version_used = version_used
-      end
-
-      # Sets the latest version
-      #
-      # @param latest [String] the latest version for the dependent cookbook
-      #
-      def latest=(latest)
-        @latest = latest
-      end
-
-      # Sets the status
-      #
-      # @param status [String] the status of the dependent cookbook (up-to-date or out-of-date)
-      #
-      def status=(status)
-        @status = status
-      end
-
-      # Sets the source url
-      #
-      # @param source_url [String] the source URL of the dependent cookbook if available
-      #
-      def source_url=(source_url)
-        @source_url = source_url
-      end
-
-      # Sets the changelog
-      #
-      # @param changelog [String] the changelog URL of the dependent cookbook
-      #
-      def changelog=(changelog)
-        @changelog = changelog
       end
     end
   end
