@@ -2,7 +2,7 @@
 
 Chef Taste is a simple command line utility to check a cookbook's dependency status.
 It will list the dependent cookbooks in a tabular format with the version information,
-status, and the changelog (if possible) for out-of-date cookbooks
+status, and the changelog (if possible) for out-of-date cookbooks.
 
 ## Installation
 
@@ -21,20 +21,26 @@ Or install it yourself as:
 ## Usage
 
 When you are inside the cookbooks directory, simply type `taste` to taste the cookbook.
-It will display a table that contains the following rows
+The `metadata.rb` of the cookbook is parsed to obtain the dependencies. It will display
+a table that contains the following rows:
 
 * `Name` - The name of the cookbook
 * `Requirement` - The version requirement specified in the metadata
 * `Used` - The final version used based on the requirement constraint
 * `Latest` - The latest version available in the community site
-* `Status` - The status of the cookbook: up-to-date (a tick mark) or out-of-date (an x mark)
+* `Status` - The status of the cookbook: up-to-date (a green tick mark) or out-of-date (a red x mark)
 * `Changelog` - The changelog of out-of-date cookbooks if available.
+
+The overall status will also be displayed in the bottom of the table.
 
 ### Changelog
 Most of the cookbooks are hosted in Github and are tagged for every release.
 The changelog is computed by obtaining the source URL provided in the community site and
 finding the tags being used and the latest tag and displaying a compare view that
 compares these two tags. This URL is then shortened using goo.gl URL shortener to fit the table.
+
+The details are obtained only for cookbooks available in the community site. Other cookbooks are
+displayed but will simply have `N/A` in their details.
 
 ### Examples
 
