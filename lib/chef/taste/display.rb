@@ -72,9 +72,9 @@ module Chef
             table = Terminal::Table.new headings: headings, rows: rows
             puts table
             if out_of_date
-              puts "Status: out-of-date ( #{X_MARK} )\n".red
+              puts "Status: out-of-date ( #{X_MARK} )".red
             else
-              puts "Status: up-to-date ( #{TICK_MARK} )\n".green
+              puts "Status: up-to-date ( #{TICK_MARK} )".green
             end
           end
         end
