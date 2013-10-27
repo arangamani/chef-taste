@@ -1,9 +1,35 @@
+#
+# Copyright (c) 2013 Kannan Manickam <me@arangamani.net>
+#
+# MIT License
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
 require 'chef/taste'
 
 module Chef
   module Taste
+    # The class that contains information about a dependent cookbook
+    #
     class Dependency
-
       # The name of the dependency
       attr_reader :name
 
@@ -25,30 +51,59 @@ module Chef
       # The changelog link for the dependency if available
       attr_reader :changelog
 
+      # Constructor
+      #
+      # @param name [String] the name of the dependent cookbook
+      # @param requirement [String] the version requirement for dependent cookbook
+      #
+      # @return [Dependency] the Dependency object
+      #
       def initialize(name, requirement)
         @name = name
         @requirement = requirement
-        @latest = nil
-        @status = nil
+        @version_used = 'N/A'
+        @latest = 'N/A'
+        @status = 'N/A'
+        @source_url = nil
         @changelog = nil
       end
 
+      # Sets the version used
+      #
+      # @param version_used [String] the version used based on the given constraint
+      #
       def version_used=(version_used)
         @version_used = version_used
       end
 
+      # Sets the latest version
+      #
+      # @param latest [String] the latest version for the dependent cookbook
+      #
       def latest=(latest)
         @latest = latest
       end
 
+      # Sets the status
+      #
+      # @param status [String] the status of the dependent cookbook (up-to-date or out-of-date)
+      #
       def status=(status)
         @status = status
       end
 
+      # Sets the source url
+      #
+      # @param source_url [String] the source URL of the dependent cookbook if available
+      #
       def source_url=(source_url)
         @source_url = source_url
       end
 
+      # Sets the changelog
+      #
+      # @param changelog [String] the changelog URL of the dependent cookbook
+      #
       def changelog=(changelog)
         @changelog = changelog
       end

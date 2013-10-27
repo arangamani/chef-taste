@@ -1,4 +1,4 @@
-Copyright (c) 2013 Kannan Manickam
+Copyright (c) 2013 Kannan Manickam <me@arangamani.net>
 
 MIT License
 
