@@ -4,12 +4,17 @@ module Chef
   module Taste
     class DependencyChecker
       class << self
-        def check
-          ridley = Ridley::Chef::Cookbook::Metadata.from_file('metadata.rb')
+        def check(path = Dir.pwd)
+          raise NotACookbook, "Current directory is not a cookbook" unless File.exists?(File.join(path, 'metadata.rb'))
+          ridley = Ridley::Chef::Cookbook::Metadata.from_file(File.join(path, 'metadata.rb'))
           rest = Berkshelf::CommunityREST.new
           ridley.dependencies.map do |name, version|
             dep = Dependency.new(name, version)
-            dep.latest = rest.latest_version(name)
+            begin
+              dep.latest = rest.latest_version(name)
+            rescue Berkshelf::CookbookNotFound
+              next
+            end
             # Obtain the version used based on the version constraint
             #
             if version

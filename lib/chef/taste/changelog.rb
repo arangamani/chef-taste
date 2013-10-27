@@ -38,7 +38,7 @@ module Chef
         end
 
         def compare_url(from_tag, to_tag)
-          "https://github.com/#{repo}/compare/#{from_tag}..#{to_tag}"
+          "https://github.com/#{repo}/compare/#{from_tag}...#{to_tag}"
         end
       end
     end
