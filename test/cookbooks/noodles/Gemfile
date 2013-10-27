@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+
+gem 'berkshelf'
+gem 'test-kitchen', '~> 1.0.0.alpha.3', :group => :integration
+gem 'kitchen-vagrant', :group => :integration
+
+gem 'chef-taste', :path => '../../../'
