@@ -85,8 +85,8 @@ module Chef
           to_tag = nil
           tags.each do |tag|
             tag_name = tag.name
-            from_tag = tag_name if tag_name =~ /v?#{from_version}/
-            to_tag = tag_name if tag_name =~ /v?#{to_version}/
+            from_tag = tag_name if tag_name =~ /^v?#{from_version}$/
+            to_tag = tag_name if tag_name =~ /^v?#{to_version}$/
           end
           compare_url(from_tag, to_tag) if from_tag && to_tag
         end
