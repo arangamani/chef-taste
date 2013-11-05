@@ -1,5 +1,8 @@
 # Chef::Taste
 
+[![Build Status](https://travis-ci.org/arangamani/chef-taste.png?branch=master)](https://travis-ci.org/arangamani/chef-taste)
+[![Dependency Status](https://gemnasium.com/arangamani/chef-taste.png)](https://gemnasium.com/arangamani/chef-taste)
+
 Chef Taste is a simple command line utility to check a cookbook's dependency status.
 It will list the dependent cookbooks in a tabular format with the version information,
 status, and the changelog (if possible) for out-of-date cookbooks.
