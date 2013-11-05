@@ -37,9 +37,13 @@ module Chef
       # The check command
       def check
         dependencies = DependencyChecker.check
-        Display.print(dependencies)
+        if dependencies.empty?
+          puts 'No dependent cookbooks'.yellow
+        else
+          Display.print(dependencies)
+        end
       rescue NotACookbookError
-        puts "The path is not a cookbook path".red
+        puts 'The path is not a cookbook path'.red
       end
     end
   end

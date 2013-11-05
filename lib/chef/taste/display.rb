@@ -35,48 +35,60 @@ module Chef
         #
         # @param dependencies [Array<Dependency>] list of cookbook dependency objects
         #
-        def print(dependencies)
-          if dependencies.empty?
-            puts "No dependent cookbooks"
+        def print(dependencies, type = 'table')
+          if type == 'table'
+            TableDisplay.print(dependencies)
+          elsif type == 'json'
+            JSONDisplay.print(dependencies)
           else
-            rows = []
-            headings = [
-              'Name',
-              'Requirement',
-              'Used',
-              'Latest',
-              'Status',
-              'Changelog'
-            ]
-            dependencies.each do |dependency|
-              color =
-                if dependency.status == TICK_MARK
-                  'green'
-                elsif dependency.status == X_MARK
-                  'red'
-                else
-                  'white'
-                end
-              rows << [
-                dependency.name,
-                dependency.requirement,
-                dependency.version_used,
-                dependency.latest,
-                {:value => dependency.status.send(color), :alignment => :center},
-                dependency.changelog
-              ]
-            end
-
-            # If any of the cookbook is out-of-date
-            out_of_date = dependencies.any? { |dep| dep.status == X_MARK }
-            table = Terminal::Table.new headings: headings, rows: rows
-            puts table
-            if out_of_date
-              puts "Status: out-of-date ( #{X_MARK} )".red
-            else
-              puts "Status: up-to-date ( #{TICK_MARK} )".green
-            end
+            raise UnsupportedDisplayTypeError, "Display type '#{type}' is not supported"
           end
+        end
+      end
+    end
+
+    class TableDisplay
+      class << self
+        def print(dependencies)
+          rows = []
+          headings = %w(Name Requirement Used Latest Status Changelog)
+          dependencies.each do |dependency|
+            status_symbol, color = status_to_symbol_and_color(dependency.status)
+            rows << [
+              dependency.name,
+              dependency.requirement,
+              dependency.version_used,
+              dependency.latest,
+              { value: status_symbol.send(color), alignment: :center },
+              dependency.changelog
+            ]
+          end
+
+          # If any of the cookbook is out-of-date
+          table = Terminal::Table.new headings: headings, rows: rows
+          puts table
+          if dependencies.any? { |dep| dep.status == 'out-of-date' }
+            puts "Status: out-of-date ( #{X_MARK} )".red
+          else
+            puts "Status: up-to-date ( #{TICK_MARK} )".green
+          end
+        end
+
+        def status_to_symbol_and_color(status)
+          if status == 'up-to-date'
+            return TICK_MARK, 'green'
+          elsif status == 'out-of-date'
+            return X_MARK, 'red'
+          else
+            return '', 'white'
+          end
+        end
+      end
+    end
+
+    class JSONDisplay
+      class << self
+        def print(dependencies)
         end
       end
     end

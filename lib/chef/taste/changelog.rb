@@ -39,9 +39,11 @@ module Chef
         # @return [String] the goo.gl shortened URL for the changelog
         #
         def compute(dep)
+          # The source url is of the form https://HOSTING_PROVIDER/USER/REPO
+          matched = dep.source_url.match(%r(^(https?:\/\/)?(.*?)\/(.*?)\/(.*?)$))
           changelog_url =
-            if dep.source_url =~ /^(https?:\/\/)?github.com\/(.*)\/(.*)$/
-              GithubChangelog.new("#{$2}/#{$3}", dep.version_used, dep.latest).compute
+            if matched[2] == 'github.com'
+              GithubChangelog.new("#{matched[3]}/#{matched[4]}", dep.version_used, dep.latest).compute
             else
               nil
             end

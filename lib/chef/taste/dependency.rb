@@ -61,9 +61,9 @@ module Chef
       def initialize(name, requirement)
         @name = name
         @requirement = requirement
-        @version_used = 'N/A'
-        @latest = 'N/A'
-        @status = 'N/A'
+        @version_used = nil
+        @latest = nil
+        @status = nil
         @source_url = nil
         @changelog = nil
       end

@@ -28,5 +28,9 @@ module Chef
     # The current/given path is not a cookbook
     #
     class NotACookbookError < StandardError; end
+
+    # The given display type is not supported
+    #
+    class UnsupportedDisplayTypeError < ArgumentError; end
   end
 end

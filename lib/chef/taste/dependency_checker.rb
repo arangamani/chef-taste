@@ -40,7 +40,7 @@ module Chef
         # @raise NotACookbook the current/given path is not a cookbook
         #
         def check(path = Dir.pwd)
-          raise NotACookbookError, "Path is not a cookbook" unless File.exists?(File.join(path, 'metadata.rb'))
+          raise NotACookbookError, 'Path is not a cookbook' unless File.exists?(File.join(path, 'metadata.rb'))
           ridley = Ridley::Chef::Cookbook::Metadata.from_file(File.join(path, 'metadata.rb'))
           dependencies =
             ridley.dependencies.map do |name, version|
@@ -71,9 +71,9 @@ module Chef
             # Calculate the status based on the version being used and the latest version
             #
             if Solve::Version.new(dep.version_used).eql?(Solve::Version.new(dep.latest))
-              dep.status = TICK_MARK
+              dep.status = 'up-to-date'
             else
-              dep.status = X_MARK
+              dep.status = 'out-of-date'
               dep.changelog = Changelog.compute(dep)
             end
           end

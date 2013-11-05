@@ -1,0 +1,14 @@
+AllCops:
+  Excludes:
+    - vendor/**
+    - test/**
+Documentation:
+  Enabled: false
+SignalException:
+  EnforcedStyle: only_raise
+Encoding:
+  Enabled: false
+LineLength:
+  Max: 120
+MethodLength:
+  Max: 20
