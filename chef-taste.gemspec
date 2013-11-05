@@ -28,5 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "terminal-table", "~> 1.4.5"
   spec.add_dependency "googl", "~> 0.6.3"
   spec.add_dependency "octokit", "~> 2.5.0"
-  spec.add_dependency "colorize", "~> 0.5.8"
+  spec.add_dependency "colorize", "~> 0.6.0"
 end
