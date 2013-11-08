@@ -8,5 +8,6 @@ version          '0.1.0'
 
 depends 'ntp', '~> 1.4.0'
 depends 'swap', '= 0.3.5'
+depends 'marker', '~> 0.1.0'
 depends 'windows'
 depends 'awesome_cb'

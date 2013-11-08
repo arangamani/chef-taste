@@ -57,24 +57,35 @@ module Chef
         #
         def populate_fields(dependencies)
           rest = Berkshelf::CommunityREST.new
-          dependencies.each do |dep|
+          dependencies.each do |dependency|
             # Skip cookbooks that are not available in the community site. It might be an external cookbook.
-            #
-            next unless cookbook_exists?(dep.name)
+            next unless cookbook_exists?(dependency.name)
 
-            dep.latest = rest.latest_version(dep.name)
+            dependency.latest = rest.latest_version(dependency.name)
+
             # Obtain the version used based on the version constraint
-            #
-            dep.version_used = rest.satisfy(dep.name, dep.requirement)
-            dep.source_url = rest.get(dep.name).body['external_url']
+            dependency.version_used = rest.satisfy(dependency.name, dependency.requirement)
+            dependency.source_url = rest.get(dependency.name).body['external_url']
 
-            # Calculate the status based on the version being used and the latest version
-            #
-            if Solve::Version.new(dep.version_used).eql?(Solve::Version.new(dep.latest))
-              dep.status = 'up-to-date'
+            # Calculate the status and changelog based on the version being used and the latest version
+            update_status(dependency)
+          end
+        end
+
+        # Updates the status of the dependency based on the version used and the latest version available in the
+        # community site. It also obtains the changelog of the dependency is out-of-date
+        #
+        # @param dependency [Dependency] the cookbook dependency
+        #
+        def update_status(dependency)
+          if dependency.version_used && dependency.latest
+            used_version = Solve::Version.new(dependency.version_used)
+            latest_version = Solve::Version.new(dependency.latest)
+            if used_version.eql?(latest_version)
+              dependency.status = 'up-to-date'
             else
-              dep.status = 'out-of-date'
-              dep.changelog = Changelog.compute(dep)
+              dependency.status = 'out-of-date'
+              dependency.changelog = Changelog.compute(dependency)
             end
           end
         end
