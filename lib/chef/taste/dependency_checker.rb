@@ -69,7 +69,6 @@ module Chef
 
             # Calculate the status and changelog based on the version being used and the latest version
             update_status(dependency)
-            #puts dependency.to_json
           end
         end
 

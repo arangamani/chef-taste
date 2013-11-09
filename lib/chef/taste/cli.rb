@@ -33,12 +33,11 @@ module Chef
       # The default task
       default_task :check
 
-      method_option :format,
-        type: :string,
-        desc: 'The format to use for display',
-        enum: ['table', 'json'],
-        default: 'table',
-        aliases: '-t'
+      method_option :format, type: :string,
+                             desc: 'The format to use for display',
+                             enum: %w(table json),
+                             default: 'table',
+                             aliases: '-t'
       desc 'check', 'Check status of dependent cookbooks'
       # The check command
       def check
