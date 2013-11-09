@@ -45,7 +45,13 @@ finding the tags being used and the latest tag and displaying a compare view tha
 compares these two tags. This URL is then shortened using goo.gl URL shortener to fit the table.
 
 The details are obtained only for cookbooks available in the community site. Other cookbooks are
-displayed but will simply have `N/A` in their details.
+displayed but will simply be empty in the details column.
+
+### Display Format
+
+Two display formats are supported: table and json
+1. The table format will display the dependency status as an ASCII table
+2. The json format will display the dependency status as a JSON object
 
 ### Examples
 
@@ -62,7 +68,7 @@ kannanmanickam@mac fried_rice$ taste
 | ntp        | ~> 1.4.0    | 1.4.0  | 1.5.0  |   ✖    | http://goo.gl/qsfgwA |
 | swap       | = 0.3.5     | 0.3.5  | 0.3.6  |   ✖    | http://goo.gl/vZtUQJ |
 | windows    | >= 0.0.0    | 1.11.0 | 1.11.0 |   ✔    |                      |
-| awesome_cb | >= 0.0.0    | N/A    | N/A    |  N/A   |                      |
+| awesome_cb | >= 0.0.0    |        |        |        |                      |
 +------------+-------------+--------+--------+--------+----------------------+
 Status: out-of-date ( ✖ )
 ```
@@ -70,21 +76,36 @@ Status: out-of-date ( ✖ )
 #### 2. noodles cookbook
 
 ```bash
-kannanmanickam@mac noodles$ taste
-+---------+-------------+--------+--------+--------+----------------------+
-| Name    | Requirement | Used   | Latest | Status | Changelog            |
-+---------+-------------+--------+--------+--------+----------------------+
-| mysql   | ~> 3.0.12   | 3.0.12 | 3.0.12 |   ✔    |                      |
-| apache2 | ~> 1.7.0    | 1.7.0  | 1.8.4  |   ✖    | http://goo.gl/9ejcpi |
-| windows | >= 0.0.0    | 1.11.0 | 1.11.0 |   ✔    |                      |
-+---------+-------------+--------+--------+--------+----------------------+
-Status: out-of-date ( ✖ )
+kannanmanickam@mac noodles$ taste --format json
+{
+  "mysql": {
+    "requirement": "~> 3.0.12",
+    "used": "3.0.12",
+    "latest": "4.0.4",
+    "status": "out-of-date",
+    "changelog": "http://goo.gl/e1nBfW"
+  },
+  "apache2": {
+    "requirement": "~> 1.7.0",
+    "used": "1.7.0",
+    "latest": "1.8.4",
+    "status": "out-of-date",
+    "changelog": "http://goo.gl/9ejcpi"
+  },
+  "windows": {
+    "requirement": ">= 0.0.0",
+    "used": "1.11.0",
+    "latest": "1.11.0",
+    "status": "up-to-date",
+    "changelog": null
+  }
+}
 ```
 
 #### 3. curry cookbook
 
 ```bash
-kannanmanickam@mac curry$ taste
+kannanmanickam@mac curry$ taste --format table
 +-----------------+-------------+-------+--------+--------+-----------+
 | Name            | Requirement | Used  | Latest | Status | Changelog |
 +-----------------+-------------+-------+--------+--------+-----------+
