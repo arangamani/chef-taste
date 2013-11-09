@@ -31,6 +31,6 @@ module Chef
 
     # The given display type is not supported
     #
-    class UnsupportedDisplayTypeError < ArgumentError; end
+    class UnsupportedDisplayFormatError < ArgumentError; end
   end
 end

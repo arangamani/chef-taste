@@ -33,6 +33,12 @@ module Chef
       # The default task
       default_task :check
 
+      method_option :format,
+        type: :string,
+        desc: 'The format to use for display',
+        enum: ['table', 'json'],
+        default: 'table',
+        aliases: '-t'
       desc 'check', 'Check status of dependent cookbooks'
       # The check command
       def check
@@ -40,10 +46,12 @@ module Chef
         if dependencies.empty?
           puts 'No dependent cookbooks'.yellow
         else
-          Display.print(dependencies)
+          Display.print(dependencies, options[:format])
         end
       rescue NotACookbookError
         puts 'The path is not a cookbook path'.red
+      rescue UnsupportedDisplayFormatError
+        puts 'The display format is not supported'.red
       end
     end
   end

@@ -67,6 +67,20 @@ module Chef
         @source_url = nil
         @changelog = nil
       end
+
+      # Converts the dependency option to a hash
+      #
+      # @return [Hash] the hash representation of the dependency object
+      #
+      def to_hash
+        {}.tap do |hash|
+          hash[:requirement] = requirement
+          hash[:used] = version_used
+          hash[:latest] = latest
+          hash[:status] = status
+          hash[:changelog] = changelog
+        end
+      end
     end
   end
 end

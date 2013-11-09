@@ -31,24 +31,32 @@ module Chef
     #
     class Display
       class << self
-        # Prints the status of dependent cookbooks as a table
+        # Prints the status of dependent cookbooks in specified format
         #
         # @param dependencies [Array<Dependency>] list of cookbook dependency objects
+        # @param format [String] the format used for display
         #
-        def print(dependencies, type = 'table')
-          if type == 'table'
+        def print(dependencies, format)
+          case format
+          when 'table'
             TableDisplay.print(dependencies)
-          elsif type == 'json'
+          when'json'
             JSONDisplay.print(dependencies)
           else
-            raise UnsupportedDisplayTypeError, "Display type '#{type}' is not supported"
+            raise UnsupportedDisplayFormatError, "Display format '#{format}' is not supported"
           end
         end
       end
     end
 
+    # Displays the cookbook dependency status in a table format
+    #
     class TableDisplay
       class << self
+        # Prints the status of dependent cookbooks as a table
+        #
+        # @param dependencies [Array<Dependency>] list of cookbook dependency objects
+        #
         def print(dependencies)
           rows = []
           headings = %w(Name Requirement Used Latest Status Changelog)
@@ -74,10 +82,19 @@ module Chef
           end
         end
 
+        # Given the status of the cookbook, this method will convert it to the unicode symbol
+        # and color. The up-to-date cookbook will receive a green color TICK mark whereas
+        # the out-of-date cookbook will receive a red color 'X' mark.
+        #
+        # @param status [String] the status of the cookbook
+        #
+        # @return [String, String] status symbol and color
+        #
         def status_to_symbol_and_color(status)
-          if status == 'up-to-date'
+          case status
+          when 'up-to-date'
             return TICK_MARK, 'green'
-          elsif status == 'out-of-date'
+          when'out-of-date'
             return X_MARK, 'red'
           else
             return '', 'white'
@@ -86,9 +103,28 @@ module Chef
       end
     end
 
+    # Displays the cookbook dependency status in JSON format
+    #
     class JSONDisplay
       class << self
+        # Prints the status of dependent in JSON
+        #
+        # @param dependencies [Array<Dependency>] list of cookbook dependency objects
+        #
         def print(dependencies)
+          puts JSON.pretty_generate(dependencies_hash(dependencies))
+        end
+
+        # Converts the dependency objects to JSON object
+        #
+        # @param dependencies [Array<Dependency>] list of cookbook dependency objects
+        #
+        def dependencies_hash(dependencies)
+          {}.tap do |hash|
+            dependencies.each do |dependency|
+              hash[dependency.name] = dependency.to_hash
+            end
+          end
         end
       end
     end
