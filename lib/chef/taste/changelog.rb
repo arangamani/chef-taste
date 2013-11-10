@@ -40,6 +40,8 @@ module Chef
         #
         def compute(dep)
           # The source url is of the form https://HOSTING_PROVIDER/USER/REPO
+          return "" if dep.source_url.nil?
+          
           matched = dep.source_url.match(%r(^(https?:\/\/)?(.*?)\/(.*?)\/(.*?)$))
           changelog_url =
             if matched[2] == 'github.com'
