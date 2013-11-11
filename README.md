@@ -50,6 +50,7 @@ displayed but will simply be empty in the details column.
 ### Display Format
 
 Two display formats are supported: table and json
+
 1. The table format will display the dependency status as an ASCII table
 2. The json format will display the dependency status as a JSON object
 
