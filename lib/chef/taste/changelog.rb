@@ -39,6 +39,9 @@ module Chef
         # @return [String] the goo.gl shortened URL for the changelog
         #
         def compute(dep)
+          # Skip dependent cookbook which has no source url
+          return '' if dep.source_url.nil?
+
           # The source url is of the form https://HOSTING_PROVIDER/USER/REPO
           matched = dep.source_url.match(%r(^(https?:\/\/)?(.*?)\/(.*?)\/(.*?)$))
           changelog_url =
