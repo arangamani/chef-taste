@@ -1,9 +1,14 @@
 # Chef::Taste
 
-[![Gem Version](https://badge.fury.io/rb/chef-taste.png)](http://badge.fury.io/rb/chef-taste)
-[![Build Status](https://travis-ci.org/arangamani/chef-taste.png?branch=master)](https://travis-ci.org/arangamani/chef-taste)
-[![Dependency Status](https://gemnasium.com/arangamani/chef-taste.png)](https://gemnasium.com/arangamani/chef-taste)
-[![Code Climate](https://codeclimate.com/github/arangamani/chef-taste.png)](https://codeclimate.com/github/arangamani/chef-taste)
+[![Gem Version](http://img.shields.io/gem/v/chef-taste.svg)][gem]
+[![Build Status](http://img.shields.io/travis/arangamani/chef-taste.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/arangamani/chef-taste.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/arangamani/chef-taste.svg)][codeclimate]
+
+[gem]: https://rubygems.org/gems/chef-taste
+[travis]: http://travis-ci.org/arangamani/chef-taste
+[gemnasium]: https://gemnasium.com/arangamani/chef-taste
+[codeclimate]: https://codeclimate.com/github/arangamani/chef-taste
 
 Chef Taste is a simple command line utility to check a cookbook's dependency status.
 It will list the dependent cookbooks in a tabular format with the version information,
